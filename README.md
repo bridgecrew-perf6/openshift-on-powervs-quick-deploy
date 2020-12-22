@@ -1,17 +1,20 @@
-This is an auxiliary automation to execute multiple setups at same time of an OpenShift cluster on PowerVS from a base multi-arch (amd64 and ppc64le) container image which is built with all the required versions of the dependencies (i.e Terraform and its providers and IBM Cloud CLI). The source code of the container is located **[in this repository](https://github.com/rpsene/powervs-container-host)** and the containers are stored at **[quay.io](https://quay.io/repository/powercloud/powervs-container-host)**.
+This is an auxiliary automation to execute on or more setups of an OpenShift cluster at IBM Cloud on PowerVS using as base a multi-arch (amd64 and ppc64le) container image which is built with all required versions of the dependencies (i.e Terraform and its providers and IBM Cloud CLI).
 
-## Step 0: PowerVS Preparation
+The source code of the container is located **[in this repository](https://github.com/rpsene/powervs-container-host)** and the containers are stored at **[quay.io](https://quay.io/repository/powercloud/powervs-container-host)**.
 
-1. **[Create a paid IBM Cloud Account](https://cloud.ibm.com/)**.
+## Step 0: PowerVS Preparation Checklist
 
-2. Add a new instance of the Object Storage Service:
-	1. Create a new bucket.
-	1. Create a new credential with HMAC enabled.
-	1. Create and upload the required .ova images.
+- [ ] **[Create a paid IBM Cloud Account](https://cloud.ibm.com/)**.
+- [ ] [Create an API key](https://cloud.ibm.com/docs/account?topic=account-userapikey).
+- [ ] Add a new instance of an Object Storage Service (or reuse any existing one):
+	- [ ] Create a new bucket.
+	- [ ] Create a new credential with HMAC enabled.
+	- [ ] Create and upload (or just upload if you already have the images) the required .ova images.
+- [ ] Add a new instance of the Power Virtual Service.
+	- [ ] Create a private network and **[open a support ticket](https://cloud.ibm.com/unifiedsupport/cases/form)** to enable connectivity between the VMs within this private network.
+	- [ ] [Create the boot images](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-importing-boot-image).
 	
-3. Add a new instance of the Power Virtual Service.
-	1. Create a private network and **[open a support ticket](https://cloud.ibm.com/unifiedsupport/cases/form)** to enable connectivity between the VMs within this private network.
-	1. Create the boot images.
+**NOTE:** Details about the checklist steps can be found [here](https://github.com/ocp-power-automation/ocp4-upi-powervs/blob/master/docs/ocp_prereqs_powervs.md).
 
 ## Step 1: Get OpenShift Secret
 
