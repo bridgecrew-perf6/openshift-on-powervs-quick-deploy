@@ -59,7 +59,6 @@ function check_connectivity() {
 function configure() {
 
 	OCP_VERSION=$1
-	
 
 	if [ -s ./ocp-secrets ]; then
 
@@ -69,9 +68,9 @@ function configure() {
 		https://github.com/ocp-power-automation/ocp4-upi-powervs.git $OCP_VERSION"_"$TODAY"_"$SUFIX
 
 		ssh-keygen -t rsa -b 4096 -N '' -f ./$OCP_VERSION"_"$TODAY"_"$SUFIX/data/id_rsa
-		
+
 		cat ../ocp-secrets >> ./$OCP_VERSION"_"$TODAY"_"$SUFIX/data/pull-secret.txt
-		
+
 		cp -rp ../run-terraform.sh ./$OCP_VERSION"_"$TODAY"_"$SUFIX
 	else
 		echo
@@ -86,18 +85,22 @@ function create_container (){
 
 	local OCP_VERSION=$1
 	local CONTAINER_NAME=$OCP_VERSION"_"$TODAY"_"$SUFIX
-	
+
 	cp -rp ../variables ./tmp-variables
-	
+
 	sed -i -e "s/sufix/$SUFIX/g" ./tmp-variables
 	sed -i -e "s/prefix/$TODAY/g" ./tmp-variables
-	
+
 	mv ./tmp-variables ./$OCP_VERSION"_"$TODAY"_"$SUFIX/$CONTAINER_NAME-variables
 
 	# starts the base container with the basic set of env vars
 	$CONTAINER_RUNTIME run -dt --name $CONTAINER_NAME \
-	-v "$(pwd)"/$OCP_VERSION"_"$TODAY:/ocp4-upi-powervs --env-file ./$OCP_VERSION"_"$TODAY"_"$SUFIX/$CONTAINER_NAME-variables \
+	-v "$(pwd)"/$OCP_VERSION"_"$TODAY"_"$SUFIX:/ocp4-upi-powervs --env-file ./$OCP_VERSION"_"$TODAY"_"$SUFIX/$CONTAINER_NAME-variables \
 	quay.io/powercloud/powervs-container-host:ocp-$OCP_VERSION /bin/bash
+
+	echo "*********************************************************************************"
+	echo "NOTE: the installation is running from within the container named $CONTAINER_NAME"
+	echo "*********************************************************************************"
 
 	# execute the TF deployment from within the container
 	$CONTAINER_RUNTIME exec -it -w /ocp4-upi-powervs $CONTAINER_NAME bash -c "./run-terraform.sh"
@@ -112,7 +115,7 @@ function run (){
 		echo
 		exit
 	fi
-	
+
 	export TODAY=$(date "+%Y%m%d-%H%M%S")
 	export SUFIX=$(openssl rand -hex 5)
 
