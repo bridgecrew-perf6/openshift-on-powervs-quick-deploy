@@ -28,6 +28,8 @@ The source code of the container is located **[in this repository](https://githu
 2. ```git clone https://github.ibm.com/rpsene/powervs-ocp-deploy.git; cd ./powervs-ocp-deploy```
 3. Edit the **[variables](variables),** file by setting the following variables:
 
+**NOTE**: you can use the [PowerVS Actions](https://github.com/rpsene/powervs-actions) to get the necessary information to fill in the variables.
+
 ```
 	IBMCLOUD_API_KEY=
 	IBMCLOUD_REGION=
