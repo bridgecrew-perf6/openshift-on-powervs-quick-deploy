@@ -1,4 +1,4 @@
-![GitHub release (latest release)](https://img.shields.io/github/v/release/rpsene/openshift-on-powervs-quick-deploy/?label=latest%20release)
+[![GitHub release (latest release)](https://img.shields.io/github/v/release/rpsene/openshift-on-powervs-quick-deploy/?label=latest%20release)
 
 [![License](https://img.shields.io/packagist/l/phplicengine/bitly)](LICENSE) 
 
