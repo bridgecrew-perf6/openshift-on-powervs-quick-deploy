@@ -73,10 +73,10 @@ Once you start deploying, the directory structure will look like this:
 └── run-terraform.sh
 ```
 
-You can either follow the log in the current container execution or leave the container (**ctrl p + ctrl q**) and follow what is going on by exploring the content of the ```powervs-clusters/4.6_20201215-225150/create.log``` file:
+You can either follow the log in the current container execution or leave the container (**ctrl p + ctrl q**) and follow what is going on by exploring the content of the ```powervs-clusters/4.6_20201222-134603_966f6d5510/create.log``` file:
 
 ```
-➜  4.6_20201215-225150 git:(release-4.6) ✗ tail -f ./powervs-clusters/4.6_20201215-225150/create.log
+➜  4.6_20201215-225150 git:(release-4.6) ✗ tail -f ./powervs-clusters/4.6_20201222-134603_966f6d5510/create.log
 
 module.prepare.ibm_pi_key.key: Creating...
 module.prepare.ibm_pi_network.public_network: Creating...
@@ -84,11 +84,11 @@ module.prepare.ibm_pi_key.key: Creation complete after 2s [id=914d5b1b-9ac4-48a6
 ...
 ```
 
-The structure of the name **4.6_20201215-213844** is ```[OCP VERSION]_[DATE OF DEPLOYMENT]_[TIME OF DEPLOYMENT]```. When you look at PowerVS UI, all resources created for this deployment will have with this prefix + its function on the deployment:
+The structure of the name **4.6_20201222-134603_966f6d5510** is ```[OCP VERSION]_[DATE OF DEPLOYMENT]-[TIME OF DEPLOYMENT]_[RANDON HASH]```. When you look at PowerVS UI, all resources created for this deployment will have with this prefix + its function on the deployment:
 
  ```
  [DATE OF DEPLOYMENT]-[TIME OF DEPLOYMENT]-[RANDON HASH]-[OCP FUNCTION]
- example: 20201215-213844-e0e76686a6-master-1
+ example: 20201222-134603-966f6d5510-master-1
  ```
 
 ## Step 4: Destroy
