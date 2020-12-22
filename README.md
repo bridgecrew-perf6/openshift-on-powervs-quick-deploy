@@ -5,7 +5,7 @@ The source code of the container is located **[in this repository](https://githu
 ## Step 0: PowerVS Preparation Checklist
 
 - [ ] **[Create a paid IBM Cloud Account](https://cloud.ibm.com/)**.
-- [ ] [Create an API key](https://cloud.ibm.com/docs/account?topic=account-userapikey).
+- [ ] **[Create an API key](https://cloud.ibm.com/docs/account?topic=account-userapikey)**.
 - [ ] Add a new instance of an Object Storage Service (or reuse any existing one):
 	- [ ] Create a new bucket.
 	- [ ] Create a new credential with HMAC enabled.
