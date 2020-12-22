@@ -1,4 +1,5 @@
 ![GitHub release (latest release)](https://img.shields.io/github/v/release/rpsene/openshift-on-powervs-quick-deploy/?label=latest%20release)
+
 [![License](https://img.shields.io/packagist/l/phplicengine/bitly)](LICENSE) 
 
 This is an auxiliary automation to execute on or more setups of an OpenShift cluster at IBM Cloud on PowerVS using as base a multi-arch (amd64 and ppc64le) container image which is built with all required versions of the dependencies (i.e Terraform and its providers and IBM Cloud CLI).
