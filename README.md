@@ -9,7 +9,7 @@ The source code of the container is located **[in this repository](https://githu
 - [ ] Add a new instance of an Object Storage Service (or reuse any existing one):
 	- [ ] Create a new bucket.
 	- [ ] Create a new credential with HMAC enabled.
-	- [ ] Create and upload (or just upload if you already have the images) the required .ova images.
+	- [ ] Create and upload (or just upload if you already have it) the required .ova images.
 - [ ] Add a new instance of the Power Virtual Service.
 	- [ ] Create a private network and **[open a support ticket](https://cloud.ibm.com/unifiedsupport/cases/form)** to enable connectivity between the VMs within this private network.
 	- [ ] [Create the boot images](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-importing-boot-image).
