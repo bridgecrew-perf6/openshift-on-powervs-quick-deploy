@@ -17,7 +17,7 @@ The source code of the container is located **[in this repository](https://githu
 	- [ ] Create a new credential with HMAC enabled.
 	- [ ] Create and upload (or just upload if you already have it) the required .ova images.
 - [ ] Add a new instance of the Power Virtual Service.
-	- [ ] Create a private network and **[open a support ticket](https://cloud.ibm.com/unifiedsupport/cases/form)** to enable connectivity between the VMs within this private network.
+	- [ ] Create a private network and **[create a support ticket](https://cloud.ibm.com/unifiedsupport/cases/form)** to enable connectivity between the VMs within this private network. [Take a look at this video to learn how to create a new support ticket](https://youtu.be/aSCuZTMTTEQ).
 	- [ ] [Create the boot images](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-importing-boot-image).
 	
 **NOTE:** Details about the checklist steps can be found [here](https://github.com/ocp-power-automation/ocp4-upi-powervs/blob/master/docs/ocp_prereqs_powervs.md).
