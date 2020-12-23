@@ -4,6 +4,8 @@
 
 This is an auxiliary automation to execute on or more setups of a default OpenShift cluster (1 bastion + 1 boot node + 3 master nodes + 2 worker nodes) at IBM Cloud on PowerVS using as base a multi-arch (amd64 and ppc64le) container image which is built with all required versions of the dependencies (i.e Terraform and its providers and IBM Cloud CLI).
 
+[Take a look at this video to see how it works](https://youtu.be/aSCuZTMTTEQ).
+
 The source code of the container is located **[in this repository](https://github.com/ocp-power-automation/powervs-container-host)** and the containers are stored at **[quay.io](https://quay.io/repository/powercloud/powervs-container-host)**.
 
 ## Step 0: PowerVS Preparation Checklist
