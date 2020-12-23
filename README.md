@@ -55,7 +55,7 @@ The source code of the container is located **[in this repository](https://githu
 	RHEL_SUBS_PASSWORD=
 ```
 
-NOTE: [Red Hat business partners who have signed a partner agreement are eligible to receive limited quantities of free Not for Resales (NFR) software subscriptions as benefits of participating in partner programs.](https://www.redhat.com/files/other/partners/Howtoguide-createanewNFR.pdf)
+**NOTE:** [Red Hat business partners who have signed a partner agreement are eligible to receive limited quantities of free Not for Resales (NFR) software subscriptions as benefits of participating in partner programs.](https://www.redhat.com/files/other/partners/Howtoguide-createanewNFR.pdf)
 
 ## Step 3: Deploy
 
