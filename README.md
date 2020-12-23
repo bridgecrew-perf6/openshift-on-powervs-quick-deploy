@@ -2,9 +2,9 @@
 ![GitHub](https://img.shields.io/github/license/rpsene/openshift-on-powervs-quick-deploy?style=flat-square)
 ![GitHub last commit](https://img.shields.io/github/last-commit/rpsene/openshift-on-powervs-quick-deploy?style=flat-square)
 
-This is an auxiliary automation to execute on or more setups of an OpenShift cluster at IBM Cloud on PowerVS using as base a multi-arch (amd64 and ppc64le) container image which is built with all required versions of the dependencies (i.e Terraform and its providers and IBM Cloud CLI).
+This is an auxiliary automation to execute on or more setups of an default OpenShift cluster at IBM Cloud on PowerVS using as base a multi-arch (amd64 and ppc64le) container image which is built with all required versions of the dependencies (i.e Terraform and its providers and IBM Cloud CLI).
 
-The source code of the container is located **[in this repository](https://github.com/rpsene/powervs-container-host)** and the containers are stored at **[quay.io](https://quay.io/repository/powercloud/powervs-container-host)**.
+The source code of the container is located **[in this repository](https://github.com/ocp-power-automation/powervs-container-host)** and the containers are stored at **[quay.io](https://quay.io/repository/powercloud/powervs-container-host)**.
 
 ## Step 0: PowerVS Preparation Checklist
 
@@ -52,6 +52,8 @@ The source code of the container is located **[in this repository](https://githu
 	RHEL_SUBS_USERNAME=
 	RHEL_SUBS_PASSWORD=
 ```
+
+NOTE: [Red Hat business partners who have signed a partner agreement are eligible to receive limited quantities of free Not for Resales (NFR) software subscriptions as benefits of participating in partner programs.](https://www.redhat.com/files/other/partners/Howtoguide-createanewNFR.pdf)
 
 ## Step 3: Deploy
 
