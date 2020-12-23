@@ -29,8 +29,8 @@ The source code of the container is located **[in this repository](https://githu
 ## Step 2: Configure the Variables
 
 1. Install a container runtime (**[docker](https://docs.docker.com/engine/install/)** or **[podman](https://podman.io/getting-started/installation)**) and **[git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)**.
-2. ```git clone https://github.ibm.com/rpsene/powervs-ocp-deploy.git; cd ./powervs-ocp-deploy```
-3. Edit the **[variables](variables),** file by setting the following variables:
+2. ```wget https://github.com/ocp-power-automation/openshift-on-powervs-quick-deploy/archive/v.1.0.zip; unzip ./v.1.0.zip; cd ./openshift-on-powervs-quick-deploy-v.1.0``` or ```git clone https://github.com/ocp-power-automation/openshift-on-powervs-quick-deploy.git````
+3. Edit the **[variables](variables),** file by setting the following:
 
 **NOTE**: you can use the [PowerVS Actions](https://github.com/rpsene/powervs-actions) to get the necessary information to fill in the variables.
 
@@ -46,7 +46,7 @@ The source code of the container is located **[in this repository](https://githu
 	PRIVATE_NETWORK_NAME=
 ```
 
-**IMPORTANT:** if you are using a **RHEL** image for the bastion, you must add the following variables and its respectives values in the aforementioned file:
+**IMPORTANT:** if you are using a **RHEL** image for the bastion, you must add the following variables and its respectives values in the aforementioned variables file:
 
 ```
 	RHEL_SUBS_USERNAME=
