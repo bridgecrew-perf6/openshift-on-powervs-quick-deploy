@@ -1,6 +1,6 @@
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/rpsene/openshift-on-powervs-quick-deploy?style=flat-square)
-![GitHub](https://img.shields.io/github/license/rpsene/openshift-on-powervs-quick-deploy?style=flat-square)
-![GitHub last commit](https://img.shields.io/github/last-commit/rpsene/openshift-on-powervs-quick-deploy?style=flat-square)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/ocp-power-automation/openshift-on-powervs-quick-deploy?style=flat-square)
+![GitHub](https://img.shields.io/github/license/ocp-power-automation/openshift-on-powervs-quick-deploy?style=flat-square)
+![GitHub last commit](https://img.shields.io/github/last-commit/ocp-power-automation/openshift-on-powervs-quick-deploy?style=flat-square)
 
 This is an auxiliary automation to execute on or more setups of a default OpenShift cluster (1 bastion + 1 boot node + 3 master nodes + 2 worker nodes) at IBM Cloud on PowerVS using as base a multi-arch (amd64 and ppc64le) container image which is built with all required versions of the dependencies (i.e Terraform and its providers and IBM Cloud CLI).
 
