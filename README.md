@@ -68,44 +68,70 @@ The source code of the container is located **[in this repository](https://githu
 Once you start deploying, the directory structure will look like this:
 
 ```
-➜  powervs-ocp-deploy git:(master) ✗ tree -L 2
+$ tree -L 2
 .
+├── LICENSE
 ├── README.md
 ├── deploy.sh
 ├── ocp-secrets
-├── variables
 ├── powervs-clusters
-│   └── 4.6_20201215-225150
-└── run-terraform.sh
+│   ├── 4.6_20201222-172133_beaaf7d926
+│   ├── 4.6_20201222-234956_b19837da8a
+│   └── tmp-variables-e
+├── run-terraform.sh
+└── variables
 ```
 
-You can either follow the log in the current container execution or leave the container (**ctrl p + ctrl q**) and follow what is going on by exploring the content of the ```powervs-clusters/4.6_20201222-134603_966f6d5510/create.log``` file:
+You can either follow the log in the current running container or leave the container (**ctrl p + ctrl q**) and follow what is going on by exploring the content of the ```create.log``` file:
 
 ```
-➜  4.6_20201215-225150 git:(release-4.6) ✗ tail -f ./powervs-clusters/4.6_20201222-134603_966f6d5510/create.log
+$ docker ps
 
-module.prepare.ibm_pi_key.key: Creating...
-module.prepare.ibm_pi_network.public_network: Creating...
-module.prepare.ibm_pi_key.key: Creation complete after 2s [id=914d5b1b-9ac4-48a6-b2ec-43f4d22d0fce/20201215-225150-02b30cc1d2-keypair]
+CONTAINER ID   IMAGE                                               COMMAND       CREATED       STATUS       PORTS     NAMES
+826cf13ebb99   quay.io/powercloud/powervs-container-host:ocp-4.6   "/bin/bash"   9 hours ago   Up 9 hours             4.6_20201222-234956_b19837da8a
+
+$ CONTAINER=4.6_20201222-234956_b19837da8a
+
+$ docker exec -w /ocp4-upi-powervs -it $CONTAINER /bin/bash -c "tail -f ./create.log"
 ...
 ```
 
-The structure of the name **4.6_20201222-134603_966f6d5510** is ```[OCP VERSION]_[DATE OF DEPLOYMENT]-[TIME OF DEPLOYMENT]_[RANDON HASH]```. When you look at PowerVS UI, all resources created for this deployment will have with this prefix + its function on the deployment:
+## Step 4: Destroy
+
+```
+$ tree -L 2
+.
+├── LICENSE
+├── README.md
+├── deploy.sh
+├── ocp-secrets
+├── powervs-clusters
+│   ├── 4.6_20201222-172133_beaaf7d926
+│   ├── 4.6_20201222-234956_b19837da8a
+│   └── tmp-variables-e
+├── run-terraform.sh
+└── variables
+
+$ docker ps
+
+CONTAINER ID   IMAGE                                               COMMAND       CREATED       STATUS       PORTS     NAMES
+826cf13ebb99   quay.io/powercloud/powervs-container-host:ocp-4.6   "/bin/bash"   9 hours ago   Up 9 hours             4.6_20201222-234956_b19837da8a
+
+$ CONTAINER=4.6_20201222-234956_b19837da8a
+
+$ docker exec -w /ocp4-upi-powervs -it $CONTAINER /bin/bash -c "./run-terraform.sh --destroy; docker rm -f $CONTAINER"
+```
+
+If need be, you can follow the log of what is going on by exploring the content of the destroy.log file:
+
+```
+$ docker exec -w /ocp4-upi-powervs -it $CONTAINER /bin/bash -c "tail -f ./destroy.log"
+...
+```
+
+NOTE: When you look at PowerVS UI, all resources created for this deployment will have a prefix + its function on the deployment:
 
  ```
  [DATE OF DEPLOYMENT]-[TIME OF DEPLOYMENT]-[RANDON HASH]-[OCP FUNCTION]
  example: 20201222-134603-966f6d5510-master-1
  ```
-
-## Step 4: Destroy
-
-```
-➜  powervs-ocp-deploy git:(master) ✗ ./run-terraform.sh --destroy
-```
-
-You can follow the log of what is going on by exploring the content of the ```./powervs-clusters/4.6_20201215-225150/destroy.log``` file:
-
-```
-➜  4.6_20201215-225150 git:(release-4.6) ✗ tail -f ./powervs-clusters/4.6_20201215-225150/destroy.log
-...
-```
