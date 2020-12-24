@@ -31,7 +31,12 @@ The source code of the container is located **[in this repository](https://githu
 ## Step 2: Configure the Variables
 
 1. Install a container runtime (**[docker](https://docs.docker.com/engine/install/)** or **[podman](https://podman.io/getting-started/installation)**) and **[git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)**.
-2. ```git clone https://github.com/rpsene/openshift-on-powervs-quick-deploy.git```
+2. Checkout the latest tag:
+```
+	git clone https://github.com/rpsene/openshift-on-powervs-quick-deploy.git && \
+	cd ./openshift-on-powervs-quick-deploy && \
+	git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
+```
 3. Edit the **[variables](variables),** file by setting the following:
 
 **NOTE**: you can use the [PowerVS Actions](https://github.com/rpsene/powervs-actions) to get the necessary information to fill in the variables.
