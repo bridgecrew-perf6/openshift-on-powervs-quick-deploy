@@ -85,7 +85,7 @@ function create_container (){
 
 	local OCP_VERSION=$1
 	local CONTAINER_NAME=$OCP_VERSION"_"$TODAY"_"$SUFIX
-	local PREFIX=$(echo "ocp_"$OCP_VERSION"_"$TODAY | tr -d .)
+	local PREFIX=$(echo "ocp-"$OCP_VERSION"-"$TODAY | tr -d .)
 
 	cp -rp ../variables ./tmp-variables
 
