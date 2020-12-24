@@ -59,13 +59,13 @@ The source code of the container is located **[in this repository](https://githu
 
 ## Step 3: Deploy
 
-**NOTE:** before selecting the OCP version, ensure that you have the proper boot images set in your PowerVS instance.
+**NOTE:** before selecting the OpenShift version, ensure that you have the proper boot images set in your PowerVS instance.
 
 ```
 ➜  powervs-ocp-deploy git:(master) ✗ ./deploy.sh
 
-	Please, select either 4.5 or 4.6.
-	e.g: ./deploy 4.6
+ERROR: please, select one of the supported versions: 4.5, 4.6.
+       e.g: ./deploy 4.6
 
 ```
 
@@ -97,7 +97,12 @@ CONTAINER ID   IMAGE                                               COMMAND      
 $ CONTAINER=4.6_20201222-234956_b19837da8a
 
 $ docker exec -w /ocp4-upi-powervs -it $CONTAINER /bin/bash -c "tail -f ./create.log"
-...
+```
+
+To easily get the cluster access information, run the following:
+
+```
+$ docker exec -w /ocp4-upi-powervs -it $CONTAINER /bin/bash -c "./cluster-access-information.sh"
 ```
 
 ## Step 4: Destroy
@@ -130,7 +135,6 @@ If need be, you can follow the log of what is going on by exploring the content 
 
 ```
 $ docker exec -w /ocp4-upi-powervs -it $CONTAINER /bin/bash -c "tail -f ./destroy.log"
-...
 ```
 
 NOTE: When you look at PowerVS UI, all resources created for this deployment will have a prefix + its function on the deployment:

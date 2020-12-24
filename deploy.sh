@@ -3,8 +3,6 @@
 : '
     Copyright (C) 2020 IBM Corporation
     Rafael Sene <rpsene@br.ibm.com> - Initial implementation.
-    This is a helper script that eases the dependency setup and 
-    configuration for the pvsadm tool. 
 '
 
 # Trap ctrl-c and call ctrl_c()
@@ -71,7 +69,8 @@ function configure() {
 
 		cat ../ocp-secrets >> ./$OCP_VERSION"_"$TODAY"_"$SUFIX/data/pull-secret.txt
 
-		cp -rp ../run-terraform.sh ./$OCP_VERSION"_"$TODAY"_"$SUFIX
+		cp -rp ../scripts/run-terraform.sh ./$OCP_VERSION"_"$TODAY"_"$SUFIX
+		cp -rp ../scripts/cluster-access-information.sh ./$OCP_VERSION"_"$TODAY"_"$SUFIX
 	else
 		echo
 		echo "ERROR: ensure you added the OpenShift Secrets at ./ocp-secrets"	
@@ -109,22 +108,29 @@ function create_container (){
 
 function run (){
 
+	OCP_VERSIONS=("4.5", "4.6")
+
 	if [ -z $1 ]; then
 		echo
-		echo "Please, select either 4.5 or 4.6."
-		echo "e.g: ./deploy 4.6"
+		echo "ERROR: please, select one of the supported versions: ${OCP_VERSIONS[@]}."
+		echo "       e.g: ./deploy 4.6"
 		echo
-		exit
+		exit 1
+	elif [[ ! " ${OCP_VERSIONS[@]} " =~ " ${1} " ]]; then
+		echo
+		echo "ERROR: this version of OpenShift ($1) is not supported."
+		echo "       pick one of the following: ${OCP_VERSIONS[@]}."
+		echo
+		exit 1
+	else
+		export TODAY=$(date "+%Y%m%d-%H%M%S")
+		export SUFIX=$(openssl rand -hex 5)
+		check_dependencies
+		check_variables ./variables
+		check_connectivity
+		configure $1
+		create_container $1
 	fi
-
-	export TODAY=$(date "+%Y%m%d-%H%M%S")
-	export SUFIX=$(openssl rand -hex 5)
-
-	check_dependencies
-	check_variables ./variables
-	check_connectivity
-	configure $1
-	create_container $1
 }
 
 run "$@"
