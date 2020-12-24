@@ -209,9 +209,11 @@ drwxr-xr-x  23 rpsene  staff  736 Dec 24 09:38 4.6_20201224-093656_9fc4f0c009
 docker stop $CONTAINER; docker rm $CONTAINER; docker run -dt --name $CONTAINER -v "$(pwd)"/$CONTAINER:/ocp4-upi-powervs --env-file ./$CONTAINER/$CONTAINER-variables quay.io/powercloud/powervs-container-host:ocp-$OCP_VERSION /bin/bash; docker exec -w /ocp4-upi-powervs -it $CONTAINER /bin/bash -c "./run-terraform.sh --destroy"
 ```
 
-NOTE: When you look at PowerVS UI, all resources created for this deployment will have a prefix + its function on the deployment:
+## NOTES
 
- ```
+When you look at PowerVS UI, all resources created for this deployment will have a prefix + its function on the deployment:
+
+```
  [DATE OF DEPLOYMENT]-[TIME OF DEPLOYMENT]-[RANDON HASH]-[OCP FUNCTION]
  example: 20201222-134603-966f6d5510-master-1
- ```
+```
