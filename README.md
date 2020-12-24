@@ -110,6 +110,47 @@ To easily get the cluster access information, run the following:
 $ docker exec -w /ocp4-upi-powervs -it $CONTAINER /bin/bash -c "./cluster-access-information.sh"
 ```
 
+If you no longer have the original container running, there is no problem. Assuming you still have the deployments directory, you can easily recover the cluster access information executing the following steps:
+
+```
+# Main directory
+➜  openshift-on-powervs-quick-deploy git:(main) ✗ ls
+LICENSE          README.md        deploy.sh        ocp-secrets      powervs-clusters scripts          variables
+
+# Move the directory which contains all clusters created
+➜  openshift-on-powervs-quick-deploy git:(main) ✗ cd ./powervs-clusters
+
+# List them to ensure you get the correct one, here the latest deployment is the first (top-down)
+➜  powervs-clusters git:(main) ✗ ls -lt
+total 0
+drwxr-xr-x  24 rpsene  staff  768 Dec 24 16:33 4.6_20201224-144242_e32be076c9
+drwxr-xr-x  24 rpsene  staff  768 Dec 24 14:13 4.6_20201224-103820_e768683787
+drwxr-xr-x  25 rpsene  staff  800 Dec 24 10:30 4.6_20201224-094335_b330760c91
+drwxr-xr-x  23 rpsene  staff  736 Dec 24 09:38 4.6_20201224-093656_9fc4f0c009
+
+# Associate the name of the deployment directory and the OpenShift version to the respectives variables
+➜  powervs-clusters git:(main) ✗ CONTAINER=4.6_20201224-144242_e32be076c9
+➜  powervs-clusters git:(main) ✗ OCP_VERSION=4.6
+
+# Run this command using your container runtime
+➜  powervs-clusters git:(main) ✗ docker stop $CONTAINER; docker rm $CONTAINE; docker run -dt --name $CONTAINER -v "$(pwd)"/$CONTAINER:/ocp4-upi-powervs quay.io/powercloud/powervs-container-host:ocp-$OCP_VERSION /bin/bash; docker exec -w /ocp4-upi-powervs -it $CONTAINER /bin/bash -c "./cluster-access-information.sh"
+
+# The output will be something like
+****************************************************************
+
+  CLUSTER ACCESS INFORMATION
+
+  Cluster ID: ocp-46-20201224-144242-e32be076c9
+  Bastion IP: 158.175.162.75 (ocp-46-20201224-144242-e32be076c9-bastion-0.nip.io)
+  Bastion SSH: ssh -i data/id_rsa root@158.175.162.75
+  OpenShift Access (user/pwd): kubeadmin/v3TPP-MyR9C-CKCx3-FQBpN
+  Web Console: https://console-openshift-console.apps.ocp-46-20201224-144242-e32be076c9.158.175.162.75.nip.io
+  OpenShift Server URL: https://api.ocp-46-20201224-144242-e32be076c9.158.175.162.75.nip.io:6443
+
+****************************************************************
+
+```
+
 ## Step 4: Destroy
 
 ```
