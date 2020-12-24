@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-:'
+: '
     Copyright (C) 2020 IBM Corporation
-    Rafael Sene <rpsene@br.ibm.com> - Initial implementation. 
+    Rafael Sene <rpsene@br.ibm.com> - Initial implementation.
 '
 
 function check_dependencies() {
