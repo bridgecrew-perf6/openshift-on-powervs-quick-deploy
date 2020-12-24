@@ -133,7 +133,7 @@ drwxr-xr-x  23 rpsene  staff  736 Dec 24 09:38 4.6_20201224-093656_9fc4f0c009
 ➜  powervs-clusters git:(main) ✗ OCP_VERSION=4.6
 
 # Run this command using your container runtime
-➜  powervs-clusters git:(main) ✗ docker stop $CONTAINER; docker rm $CONTAINE; docker run -dt --name $CONTAINER -v "$(pwd)"/$CONTAINER:/ocp4-upi-powervs quay.io/powercloud/powervs-container-host:ocp-$OCP_VERSION /bin/bash; docker exec -w /ocp4-upi-powervs -it $CONTAINER /bin/bash -c "./cluster-access-information.sh"
+➜  powervs-clusters git:(main) ✗ docker stop $CONTAINER; docker rm $CONTAINER; docker run -dt --name $CONTAINER -v "$(pwd)"/$CONTAINER:/ocp4-upi-powervs quay.io/powercloud/powervs-container-host:ocp-$OCP_VERSION /bin/bash; docker exec -w /ocp4-upi-powervs -it $CONTAINER /bin/bash -c "./cluster-access-information.sh"
 
 # The output will be something like
 ****************************************************************
@@ -181,6 +181,32 @@ If need be, you can follow the log of what is going on by exploring the content 
 
 ```
 $ docker exec -w /ocp4-upi-powervs -it $CONTAINER /bin/bash -c "tail -f ./destroy.log"
+```
+
+If you no longer have the original container running, there is no problem. Assuming you still have the deployments directory, you can easily delete the cluster executing the following steps:
+
+```
+# Main directory
+➜  openshift-on-powervs-quick-deploy git:(main) ✗ ls
+LICENSE          README.md        deploy.sh        ocp-secrets      powervs-clusters scripts          variables
+
+# Move the directory which contains all clusters created
+➜  openshift-on-powervs-quick-deploy git:(main) ✗ cd ./powervs-clusters
+
+# List them to ensure you get the correct one, here the latest deployment is the first (top-down)
+➜  powervs-clusters git:(main) ✗ ls -lt
+total 0
+drwxr-xr-x  24 rpsene  staff  768 Dec 24 16:33 4.6_20201224-144242_e32be076c9
+drwxr-xr-x  24 rpsene  staff  768 Dec 24 14:13 4.6_20201224-103820_e768683787
+drwxr-xr-x  25 rpsene  staff  800 Dec 24 10:30 4.6_20201224-094335_b330760c91
+drwxr-xr-x  23 rpsene  staff  736 Dec 24 09:38 4.6_20201224-093656_9fc4f0c009
+
+# Associate the name of the deployment directory and the OpenShift version to the respectives variables
+➜  powervs-clusters git:(main) ✗ CONTAINER=4.6_20201224-144242_e32be076c9
+➜  powervs-clusters git:(main) ✗ OCP_VERSION=4.6
+
+# Run this command using your container runtime
+docker stop $CONTAINER; docker rm $CONTAINER; docker run -dt --name $CONTAINER -v "$(pwd)"/$CONTAINER:/ocp4-upi-powervs --env-file ./$CONTAINER/$CONTAINER-variables quay.io/powercloud/powervs-container-host:ocp-$OCP_VERSION /bin/bash; docker exec -w /ocp4-upi-powervs -it $CONTAINER /bin/bash -c "./run-terraform.sh --destroy"
 ```
 
 NOTE: When you look at PowerVS UI, all resources created for this deployment will have a prefix + its function on the deployment:
