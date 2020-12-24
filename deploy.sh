@@ -85,11 +85,12 @@ function create_container (){
 
 	local OCP_VERSION=$1
 	local CONTAINER_NAME=$OCP_VERSION"_"$TODAY"_"$SUFIX
+	local PREFIX=$OCP_VERSION"_"$TODAY
 
 	cp -rp ../variables ./tmp-variables
 
 	sed -i -e "s/sufix/$SUFIX/g" ./tmp-variables
-	sed -i -e "s/prefix/$TODAY/g" ./tmp-variables
+	sed -i -e "s/prefix/$PREFIX/g" ./tmp-variables
 
 	mv ./tmp-variables ./$OCP_VERSION"_"$TODAY"_"$SUFIX/$CONTAINER_NAME-variables
 
