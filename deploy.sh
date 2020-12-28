@@ -22,7 +22,7 @@ function check_dependencies() {
 	   export CONTAINER_RUNTIME="docker"
 	else
 	   echo "ERROR: please, install either podman or docker!"
-	   exit
+	   exit 1
 	fi
 }
 
@@ -39,7 +39,7 @@ function check_variables() {
 	   		echo "ERROR: $VAR is not set."
 	   		echo "      check the $INPUT file and try again."
 	   		echo
-	   		exit
+	   		exit 1
 		fi
 	done < "$INPUT"
 }
@@ -50,7 +50,7 @@ function check_connectivity() {
     if [ ! $? -eq 0 ]; then
         echo
         echo "ERROR: please, check your internet connection."
-        exit
+        exit 1
     fi
 }
 
@@ -76,7 +76,7 @@ function configure() {
 		echo "ERROR: ensure you added the OpenShift Secrets at ./ocp-secrets"	
 		echo "       you can get it from bit.ly/ocp-secrets"
 		echo
-		exit
+		exit 1
 	fi
 }
 
