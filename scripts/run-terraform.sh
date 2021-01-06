@@ -39,8 +39,8 @@ function terraform_create (){
 	-var network_name="$PRIVATE_NETWORK_NAME" \
 	-var rhel_subscription_username="$RHEL_SUBS_USERNAME" \
 	-var rhel_subscription_password="$RHEL_SUBS_PASSWORD" \
-        -var cluster_id="$CLUSTER_ID" \
-        -var cluster_id_prefix="$CLUSTET_ID_PREFIX" \
+	-var cluster_id="$CLUSTER_ID" \
+	-var cluster_id_prefix="$CLUSTET_ID_PREFIX" \
 	-var cluster_domain="$CLUSTER_DOMAIN" | tee create.log
 }
 
@@ -59,8 +59,8 @@ function terraform_destroy (){
 	-var network_name="$PRIVATE_NETWORK_NAME" \
 	-var rhel_subscription_username="$RHEL_SUBS_USERNAME" \
 	-var rhel_subscription_password="$RHEL_SUBS_PASSWORD" \
-        -var cluster_id="$CLUSTER_ID" \
-        -var cluster_id_prefix="$CLUSTET_ID_PREFIX" \
+	-var cluster_id="$CLUSTER_ID" \
+	-var cluster_id_prefix="$CLUSTET_ID_PREFIX" \
 	-var cluster_domain="$CLUSTER_DOMAIN" | tee destroy.log
 }
 
