@@ -94,7 +94,7 @@ function create_container (){
 	mv ./tmp-variables ./$OCP_VERSION"_"$TODAY"_"$SUFIX/$CONTAINER_NAME-variables
 
 	# starts the base container with the basic set of env vars
-	$CONTAINER_RUNTIME run -dt --name $CONTAINER_NAME \
+	$CONTAINER_RUNTIME run --rm -d --name $CONTAINER_NAME \
 	-v "$(pwd)"/$OCP_VERSION"_"$TODAY"_"$SUFIX:/ocp4-upi-powervs --env-file ./$OCP_VERSION"_"$TODAY"_"$SUFIX/$CONTAINER_NAME-variables \
 	quay.io/powercloud/powervs-container-host:ocp-$OCP_VERSION /bin/bash
 
