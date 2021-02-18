@@ -42,6 +42,26 @@ function terraform_create (){
 	-var cluster_id="$CLUSTER_ID" \
 	-var cluster_id_prefix="$CLUSTET_ID_PREFIX" \
 	-var cluster_domain="$CLUSTER_DOMAIN" | tee create.log
+	
+    	local BASTION_IP=$(terraform output --json | jq -r '.bastion_public_ip.value')
+    	local BASTION_SSH=$(terraform output --json | jq -r '.bastion_ssh_command.value')
+    	local BASTION_HOSTNAME=$($BASTION_SSH -oStrictHostKeyChecking=no 'hostname')
+    	local CLUSTER_ID=$(terraform output --json | jq -r '.cluster_id.value')
+    	local KUBEADMIN_PWD=$($BASTION_SSH -oStrictHostKeyChecking=no 'cat ~/openstack-upi/auth/kubeadmin-password; echo')
+    	local WEBCONSOLE_URL=$(terraform output --json | jq -r '.web_console_url.value')
+    	local OCP_SERVER_URL=$(terraform output --json | jq -r '.oc_server_url.value')
+
+cat << EOF
+****************************************************************
+  CLUSTER ACCESS INFORMATION
+  Cluster ID: $CLUSTER_ID
+  Bastion IP: $BASTION_IP ($BASTION_HOSTNAME)
+  Bastion SSH: $BASTION_SSH
+  OpenShift Access (user/pwd): kubeadmin/$KUBEADMIN_PWD
+  Web Console: $WEBCONSOLE_URL
+  OpenShift Server URL: $OCP_SERVER_URL
+****************************************************************
+EOF
 }
 
 function terraform_destroy (){
