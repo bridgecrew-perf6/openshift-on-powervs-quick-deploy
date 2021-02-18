@@ -103,7 +103,7 @@ function create_container (){
 	echo "*********************************************************************************"
 
 	# execute the TF deployment from within the container
-	$CONTAINER_RUNTIME exec -i -w /ocp4-upi-powervs $CONTAINER_NAME bash -c "./run-terraform.sh"
+	$CONTAINER_RUNTIME exec --tty -w /ocp4-upi-powervs $CONTAINER_NAME bash -c "./run-terraform.sh"
 }
 
 function run (){
