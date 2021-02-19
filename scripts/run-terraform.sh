@@ -65,7 +65,7 @@ function terraform_create (){
 	Web Console: $WEBCONSOLE_URL
 	OpenShift Server URL: $OCP_SERVER_URL
 	Kubeconfig: $AUTH_FILES
-	" >> ./"$CLUSTER_ID"-access-details
+	" >> ./"$CLUSTER_ID"-access-details/access-details
 	
 	mv ./auth_files.tgz ./"$CLUSTER_ID"-access-details
 
