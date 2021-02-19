@@ -68,6 +68,10 @@ function terraform_create (){
 	" >> ./"$CLUSTER_ID"-access-details/access-details
 	
 	mv ./auth_files.tgz ./"$CLUSTER_ID"-access-details
+	cp -rp ./create.log ./"$CLUSTER_ID"-access-details
+	
+	mkdir -p ./"$CLUSTER_ID"-access-details/ssh-key
+	cp -rp ./data/id_rsa* ./"$CLUSTER_ID"-access-details/ssh-key
 
 	tar -czvf "$CLUSTER_ID"-access-details.tar ./"$CLUSTER_ID"-access-details
 
