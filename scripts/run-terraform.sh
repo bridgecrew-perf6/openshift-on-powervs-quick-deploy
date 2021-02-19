@@ -50,6 +50,25 @@ function terraform_create (){
     	local KUBEADMIN_PWD=$($BASTION_SSH -oStrictHostKeyChecking=no 'cat ~/openstack-upi/auth/kubeadmin-password; echo')
     	local WEBCONSOLE_URL=$(terraform output --json | jq -r '.web_console_url.value')
     	local OCP_SERVER_URL=$(terraform output --json | jq -r '.oc_server_url.value')
+	# copies the authentication files from the bastion
+    	local AUTH_FILES="auth_files.tgz"
+    	$BASTION_SSH -oStrictHostKeyChecking=no 'cd ~/openstack-upi && tar -cf - * | gzip -9' > $AUTH_FILES
+	
+	mkdir -p ./"$CLUSTET_ID"_PREFIX-"$CLUSTER_ID"-access-details
+	echo "
+	CLUSTER ACCESS INFORMATION
+	Cluster ID: $CLUSTER_ID
+	Bastion IP: $BASTION_IP ($BASTION_HOSTNAME)
+	Bastion SSH: $BASTION_SSH
+	OpenShift Access (user/pwd): kubeadmin/$KUBEADMIN_PWD
+	Web Console: $WEBCONSOLE_URL
+	OpenShift Server URL: $OCP_SERVER_URL
+	Kubeconfig: $AUTH_FILES
+	" >> ./"$CLUSTET_ID"_PREFIX-"$CLUSTER_ID"-access-details
+	
+	mv ./auth_files.tgz ./"$CLUSTET_ID"_PREFIX-"$CLUSTER_ID"-access-details
+
+	tar -czvf ./"$CLUSTET_ID"_PREFIX-"$CLUSTER_ID"-access-details
 
 cat << EOF
 ****************************************************************
@@ -60,6 +79,7 @@ cat << EOF
   OpenShift Access (user/pwd): kubeadmin/$KUBEADMIN_PWD
   Web Console: $WEBCONSOLE_URL
   OpenShift Server URL: $OCP_SERVER_URL
+  Kubeconfig: $AUTH_FILES
 ****************************************************************
 EOF
 }
