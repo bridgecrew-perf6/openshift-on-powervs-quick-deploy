@@ -54,7 +54,8 @@ function terraform_create (){
     	local AUTH_FILES="auth_files.tgz"
     	$BASTION_SSH -oStrictHostKeyChecking=no 'cd ~/openstack-upi && tar -cf - * | gzip -9' > $AUTH_FILES
 	
-	mkdir -p ./"$CLUSTET_ID"_PREFIX-"$CLUSTER_ID"-access-details
+	mkdir -p ./"$CLUSTER_ID"-access-details
+
 	echo "
 	CLUSTER ACCESS INFORMATION
 	Cluster ID: $CLUSTER_ID
@@ -64,11 +65,11 @@ function terraform_create (){
 	Web Console: $WEBCONSOLE_URL
 	OpenShift Server URL: $OCP_SERVER_URL
 	Kubeconfig: $AUTH_FILES
-	" >> ./"$CLUSTET_ID"_PREFIX-"$CLUSTER_ID"-access-details
+	" >> ./"$CLUSTER_ID"-access-details
 	
-	mv ./auth_files.tgz ./"$CLUSTET_ID"_PREFIX-"$CLUSTER_ID"-access-details
+	mv ./auth_files.tgz ./"$CLUSTER_ID"-access-details
 
-	tar -czvf ./"$CLUSTET_ID"_PREFIX-"$CLUSTER_ID"-access-details
+	tar -czvf "$CLUSTER_ID"-access-details.tar ./"$CLUSTER_ID"-access-details
 
 cat << EOF
 ****************************************************************
