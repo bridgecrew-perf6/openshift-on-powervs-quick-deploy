@@ -108,12 +108,12 @@ function create_container (){
 
 function run (){
 
-	OCP_VERSIONS=("4.5", "4.6")
+	OCP_VERSIONS=("4.5", "4.6", "4.7)
 
 	if [ -z $1 ]; then
 		echo
 		echo "ERROR: please, select one of the supported versions: ${OCP_VERSIONS[@]}."
-		echo "       e.g: ./deploy 4.6"
+		echo "       e.g: ./deploy 4.7"
 		echo
 		exit 1
 	elif [[ ! " ${OCP_VERSIONS[@]} " =~ " ${1} " ]]; then
