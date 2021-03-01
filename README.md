@@ -69,8 +69,8 @@ The source code of the container is located **[in this repository](https://githu
 ```
 ➜  powervs-ocp-deploy git:(master) ✗ ./deploy.sh
 
-ERROR: please, select one of the supported versions: 4.5, 4.6.
-       e.g: ./deploy 4.6
+ERROR: please, select one of the supported versions: 4.5, 4.6, 4.7
+       e.g: ./deploy 4.7
 
 ```
 
@@ -139,13 +139,14 @@ $ docker stop $CONTAINER; docker rm $CONTAINER; docker run -dt --name $CONTAINER
 ****************************************************************
 
   CLUSTER ACCESS INFORMATION
-
-  Cluster ID: ocp-46-20201224-144242-e32be076c9
-  Bastion IP: 158.175.162.75 (ocp-46-20201224-144242-e32be076c9-bastion-0.nip.io)
-  Bastion SSH: ssh -i data/id_rsa root@158.175.162.75
-  OpenShift Access (user/pwd): kubeadmin/v3TPP-MyR9C-CKCx3-FQBpN
-  Web Console: https://console-openshift-console.apps.ocp-46-20201224-144242-e32be076c9.158.175.162.75.nip.io
-  OpenShift Server URL: https://api.ocp-46-20201224-144242-e32be076c9.158.175.162.75.nip.io:6443
+  
+  Cluster ID: 47-0301-4fa8
+  Bastion IP: 158.175.162.155 (47-0301-4fa8-bastion-0.nip.io)
+  Bastion SSH: ssh -i data/id_rsa root@158.175.162.155
+  OpenShift Access (user/pwd): kubeadmin/tuMYC-wIRZq-KsLh5-eanw4
+  Web Console: https://console-openshift-console.apps.47-0301-4fa8.158.175.162.155.nip.io
+  OpenShift Server URL: https://api.47-0301-4fa8.158.175.162.155.nip.io:6443
+  Kubeconfig: auth_files.tgz
 
 ****************************************************************
 
