@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 : '
-    Copyright (C) 2020 IBM Corporation
+    Copyright (C) 2020,2021 IBM Corporation
     Rafael Sene <rpsene@br.ibm.com> - Initial implementation.
 '
 
@@ -84,7 +84,7 @@ function create_container (){
 
 	local OCP_VERSION=$1
 	local CONTAINER_NAME=$OCP_VERSION"_"$TODAY"_"$SUFIX
-	local PREFIX=$(echo "ocp-"$OCP_VERSION"-"$TODAY | tr -d .)
+	local PREFIX=$(echo "ocp-"$OCP_VERSION"-" | tr -d .)
 
 	cp -rp ../variables ./tmp-variables
 
@@ -123,7 +123,7 @@ function run (){
 		echo
 		exit 1
 	else
-		export TODAY=$(date "+%Y%m%d-%H%M%S")
+		export TODAY=$(date "+%Y%m%d")
 		export SUFIX=$(openssl rand -hex 5)
 		check_dependencies
 		check_variables ./variables
