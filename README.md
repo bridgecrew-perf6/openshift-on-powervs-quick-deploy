@@ -2,7 +2,31 @@
 ![GitHub](https://img.shields.io/github/license/rpsene/openshift-on-powervs-quick-deploy?style=flat-square)
 ![GitHub last commit](https://img.shields.io/github/last-commit/rpsene/openshift-on-powervs-quick-deploy?style=flat-square)
 
-This is an auxiliary automation to execute one or more setups of a default OpenShift cluster (1 bastion + 1 boot node + 3 master nodes + 2 worker nodes) at IBM Cloud on PowerVS using as base a multi-arch (amd64 and ppc64le) container image which is built with all required versions of the dependencies (i.e Terraform and its providers and IBM Cloud CLI).
+This is an auxiliary automation to execute one or more setups of an OpenShift cluster (small, medium or large flavors) at IBM Cloud on PowerVS a multi-arch (amd64 and ppc64le) container image built with all required dependencies (i.e Terraform and its providers).
+
+small:
+```
+bastion		= {memory      = "16",   processors  = "0.5",  "count"   = 1}
+bootstrap	= {memory      = "32",   processors  = "0.5",  "count"   = 1}
+master		= {memory      = "32",   processors  = "0.5",  "count"   = 3}
+worker		= {memory      = "32",   processors  = "0.5",  "count"   = 2}
+```
+
+medium:
+```
+bastion		= {memory      = "16",   processors  = "1",    "count"   = 1}
+bootstrap	= {memory      = "32",   processors  = "0.5",  "count"   = 1}
+master		= {memory      = "32",   processors  = "0.5",  "count"   = 3}
+worker		= {memory      = "32",   processors  = "0.5",  "count"   = 3}
+```
+
+large:
+```
+bastion		= {memory      = "64",   processors  = "1.5",  "count"   = 1}
+bootstrap	= {memory      = "32",   processors  = "0.5",  "count"   = 1}
+master		= {memory      = "64",   processors  = "1.5",  "count"   = 3}
+worker		= {memory      = "64",   processors  = "1.5",  "count"   = 4}
+```
 
 [Take a look at this video to see how it works](https://youtu.be/aSCuZTMTTEQ).
 
@@ -34,8 +58,7 @@ The source code of the container is located **[in this repository](https://githu
 2. Checkout the latest release tag:
 ```
 	git clone https://github.com/rpsene/openshift-on-powervs-quick-deploy.git && \
-	cd ./openshift-on-powervs-quick-deploy && \
-	git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
+	cd ./openshift-on-powervs-quick-deploy
 ```
 3. Edit the **[variables](variables),** file by setting the following:
 
@@ -48,9 +71,13 @@ The source code of the container is located **[in this repository](https://githu
 	POWERVS_INSTANCE_ID=
 	BASTION_IMAGE_NAME=
 	RHCOS_IMAGE_NAME=
-	PROCESSOR_TYPE=shared
-	SYSTEM_TYPE=s922
+	PROCESSOR_TYPE=
+	SYSTEM_TYPE=
 	PRIVATE_NETWORK_NAME=
+	CLUSTER_ID=sufix
+	CLUSTET_ID_PREFIX=prefix
+	CLUSTER_DOMAIN=nip.io
+	CLUSTER_FLAVOR=
 ```
 
 **IMPORTANT:** if you are using a **RHEL** image for the bastion, you must add the following variables and its respectives values in the aforementioned variables file:
