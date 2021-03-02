@@ -85,19 +85,20 @@ function configure() {
 function create_container (){
 
 	local OCP_VERSION=$1
-	local CONTAINER_NAME="ocp_"$OCP_VERSION"_"$SUFIX
+	local CONTAINER_NAME=$(echo "ocp_"$OCP_VERSION"_"$SUFIX | tr -d .)
 	local PREFIX=$(echo "ocp_"$OCP_VERSION | tr -d .)
+	local DIR=$(echo "ocp_"$OCP_VERSION"_"$SUFIX | tr -d .)
 
 	cp -rp ../variables ./tmp-variables
 
 	sed -i -e "s/sufix/$SUFIX/g" ./tmp-variables
 	sed -i -e "s/prefix/$PREFIX/g" ./tmp-variables
 
-	mv ./tmp-variables ./"ocp_"$OCP_VERSION"_"$SUFIX/$CONTAINER_NAME-variables
+	mv ./tmp-variables ./$DIR/$CONTAINER_NAME-variables
 
 	# starts the base container with the basic set of env vars
 	$CONTAINER_RUNTIME run -dt --name $CONTAINER_NAME \
-	-v "$(pwd)"/"ocp_"$OCP_VERSION"_"$SUFIX:/ocp4-upi-powervs --env-file ./"ocp_"$OCP_VERSION"_"$SUFIX/$CONTAINER_NAME-variables \
+	-v "$(pwd)"/$DIR:/ocp4-upi-powervs --env-file ./$DIR/$CONTAINER_NAME-variables \
 	quay.io/powercloud/powervs-container-host:ocp-$OCP_VERSION /bin/bash
 
 	echo "*********************************************************************************"
