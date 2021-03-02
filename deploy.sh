@@ -127,7 +127,7 @@ function run (){
 		exit 1
 	else
 		export TODAY=$(date "+%Y%m%d")
-		export SUFIX=$(openssl rand -hex 5)
+		export SUFIX=$(openssl rand -hex 3)
 		check_dependencies
 		check_variables ./variables
 		check_connectivity
