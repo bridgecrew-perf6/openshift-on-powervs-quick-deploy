@@ -111,7 +111,7 @@ function create_container (){
 
 function run (){
 
-	OCP_VERSIONS=("4.5", "4.6", "4.7")
+	OCP_VERSIONS=("4.5" "4.6" "4.7")
 
 	if [ -z $1 ]; then
 		echo
