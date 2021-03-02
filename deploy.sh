@@ -61,16 +61,18 @@ function configure() {
 	if [ -s ./ocp-secrets ]; then
 
 		mkdir -p ./powervs-clusters; cd ./powervs-clusters
+		
+		DIR="ocp-"$OCP_VERSION"-"$SUFIX
 
 		git clone --single-branch --branch release-"$OCP_VERSION" \
-		https://github.com/ocp-power-automation/ocp4-upi-powervs.git $OCP_VERSION"_"$TODAY"_"$SUFIX
+		https://github.com/ocp-power-automation/ocp4-upi-powervs.git $DIR
+		
+		ssh-keygen -t rsa -b 4096 -N '' -f ./$DIR/data/id_rsa
 
-		ssh-keygen -t rsa -b 4096 -N '' -f ./$OCP_VERSION"_"$TODAY"_"$SUFIX/data/id_rsa
+		cat ../ocp-secrets >> ./$DIR/data/pull-secret.txt
 
-		cat ../ocp-secrets >> ./$OCP_VERSION"_"$TODAY"_"$SUFIX/data/pull-secret.txt
-
-		cp -rp ../scripts/run-terraform.sh ./$OCP_VERSION"_"$TODAY"_"$SUFIX
-		cp -rp ../scripts/cluster-access-information.sh ./$OCP_VERSION"_"$TODAY"_"$SUFIX
+		cp -rp ../scripts/run-terraform.sh ./$DIR
+		cp -rp ../scripts/cluster-access-information.sh ./$DIR
 	else
 		echo
 		echo "ERROR: ensure you added the OpenShift Secrets at ./ocp-secrets"	
@@ -83,7 +85,7 @@ function configure() {
 function create_container (){
 
 	local OCP_VERSION=$1
-	local CONTAINER_NAME=$OCP_VERSION"_"$TODAY"_"$SUFIX
+	local CONTAINER_NAME="ocp-"$OCP_VERSION"-"$SUFIX
 	local PREFIX=$(echo "ocp-"$OCP_VERSION"-" | tr -d .)
 
 	cp -rp ../variables ./tmp-variables
@@ -91,11 +93,11 @@ function create_container (){
 	sed -i -e "s/sufix/$SUFIX/g" ./tmp-variables
 	sed -i -e "s/prefix/$PREFIX/g" ./tmp-variables
 
-	mv ./tmp-variables ./$OCP_VERSION"_"$TODAY"_"$SUFIX/$CONTAINER_NAME-variables
+	mv ./tmp-variables ./"ocp-"$OCP_VERSION"-"$SUFIX/$CONTAINER_NAME-variables
 
 	# starts the base container with the basic set of env vars
 	$CONTAINER_RUNTIME run -dt --name $CONTAINER_NAME \
-	-v "$(pwd)"/$OCP_VERSION"_"$TODAY"_"$SUFIX:/ocp4-upi-powervs --env-file ./$OCP_VERSION"_"$TODAY"_"$SUFIX/$CONTAINER_NAME-variables \
+	-v "$(pwd)"/"ocp-"$OCP_VERSION"-"$SUFIX:/ocp4-upi-powervs --env-file ./"ocp-"$OCP_VERSION"-"$SUFIX/$CONTAINER_NAME-variables \
 	quay.io/powercloud/powervs-container-host:ocp-$OCP_VERSION /bin/bash
 
 	echo "*********************************************************************************"
