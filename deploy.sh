@@ -62,7 +62,7 @@ function configure() {
 
 		mkdir -p ./powervs-clusters; cd ./powervs-clusters
 		
-		DIR="ocp_"$OCP_VERSION"_"$SUFIX
+		DIR=$(echo "ocp_"$OCP_VERSION"_"$SUFIX | tr -d .)
 
 		git clone --single-branch --branch release-"$OCP_VERSION" \
 		https://github.com/ocp-power-automation/ocp4-upi-powervs.git $DIR
@@ -85,8 +85,9 @@ function configure() {
 function create_container (){
 
 	local OCP_VERSION=$1
+	local SUFIX=$(openssl rand -hex 5)
 	local CONTAINER_NAME="ocp_"$OCP_VERSION"_"$SUFIX
-	local PREFIX=$(echo "ocp_"$OCP_VERSION"_" | tr -d .)
+	local PREFIX=$(echo "ocp_"$OCP_VERSION | tr -d .)
 
 	cp -rp ../variables ./tmp-variables
 
@@ -126,7 +127,6 @@ function run (){
 		exit 1
 	else
 		export TODAY=$(date "+%Y%m%d")
-		export SUFIX=$(openssl rand -hex 5)
 		check_dependencies
 		check_variables ./variables
 		check_connectivity
