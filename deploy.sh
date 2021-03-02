@@ -62,7 +62,7 @@ function configure() {
 
 		mkdir -p ./powervs-clusters; cd ./powervs-clusters
 		
-		DIR="ocp-"$OCP_VERSION"-"$SUFIX
+		DIR="ocp_"$OCP_VERSION"_"$SUFIX
 
 		git clone --single-branch --branch release-"$OCP_VERSION" \
 		https://github.com/ocp-power-automation/ocp4-upi-powervs.git $DIR
@@ -85,19 +85,19 @@ function configure() {
 function create_container (){
 
 	local OCP_VERSION=$1
-	local CONTAINER_NAME="ocp-"$OCP_VERSION"-"$SUFIX
-	local PREFIX=$(echo "ocp-"$OCP_VERSION"-" | tr -d .)
+	local CONTAINER_NAME="ocp_"$OCP_VERSION"_"$SUFIX
+	local PREFIX=$(echo "ocp_"$OCP_VERSION"_" | tr -d .)
 
 	cp -rp ../variables ./tmp-variables
 
 	sed -i -e "s/sufix/$SUFIX/g" ./tmp-variables
 	sed -i -e "s/prefix/$PREFIX/g" ./tmp-variables
 
-	mv ./tmp-variables ./"ocp-"$OCP_VERSION"-"$SUFIX/$CONTAINER_NAME-variables
+	mv ./tmp-variables ./"ocp_"$OCP_VERSION"_"$SUFIX/$CONTAINER_NAME-variables
 
 	# starts the base container with the basic set of env vars
 	$CONTAINER_RUNTIME run -dt --name $CONTAINER_NAME \
-	-v "$(pwd)"/"ocp-"$OCP_VERSION"-"$SUFIX:/ocp4-upi-powervs --env-file ./"ocp-"$OCP_VERSION"-"$SUFIX/$CONTAINER_NAME-variables \
+	-v "$(pwd)"/"ocp_"$OCP_VERSION"_"$SUFIX:/ocp4-upi-powervs --env-file ./"ocp_"$OCP_VERSION"_"$SUFIX/$CONTAINER_NAME-variables \
 	quay.io/powercloud/powervs-container-host:ocp-$OCP_VERSION /bin/bash
 
 	echo "*********************************************************************************"
