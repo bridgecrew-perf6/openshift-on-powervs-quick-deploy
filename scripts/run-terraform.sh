@@ -28,7 +28,7 @@ function terraform_create (){
 
 	terraform init
 	time terraform apply -auto-approve -var-file var.tfvars \
-	-var-file compute-vars/"$FLAVOR".tfvars \
+	-var-file compute-vars/"$CLUSTER_FLAVOR".tfvars \
 	-var ibmcloud_api_key="$IBMCLOUD_API_KEY" \
 	-var ibmcloud_region="$IBMCLOUD_REGION" \
 	-var ibmcloud_zone="$IBMCLOUD_ZONE" \
@@ -59,6 +59,7 @@ function terraform_create (){
 
 	echo "
 	CLUSTER ACCESS INFORMATION
+	Cluster Size: $CLUSTER_FLAVOR
 	Cluster ID: $CLUSTER_ID
 	Bastion IP: $BASTION_IP ($BASTION_HOSTNAME)
 	Bastion SSH: $BASTION_SSH
@@ -79,7 +80,7 @@ function terraform_create (){
 cat << EOF
 ****************************************************************
   CLUSTER ACCESS INFORMATION
-  Cluster Size: $FLAVOR
+  Cluster Size: $CLUSTER_FLAVOR
   Cluster ID: $CLUSTER_ID
   Bastion IP: $BASTION_IP ($BASTION_HOSTNAME)
   Bastion SSH: $BASTION_SSH
@@ -95,7 +96,7 @@ function terraform_destroy (){
 
 	terraform init
 	terraform destroy -auto-approve -var-file var.tfvars -parallelism=3 \
-	-var-file compute-vars/"$FLAVOR".tfvars \
+	-var-file compute-vars/"$CLUSTER_FLAVOR".tfvars \
 	-var ibmcloud_api_key="$IBMCLOUD_API_KEY" \
 	-var ibmcloud_region="$IBMCLOUD_REGION" \
 	-var ibmcloud_zone="$IBMCLOUD_ZONE" \
