@@ -40,7 +40,9 @@ function check_dependencies() {
 function destroy () {
 	
 	CONTAINER=$1
-	OCP_VERSION=$(echo $CONTAINER | awk '{split($0,version,"_"); print version[1]}')
+	FIRST_DIGIT=$(echo $CONTAINER | awk '{split($0,version,"_"); print version[2]}' | cut -c 1)
+	SECOND_DIGIT=$(echo $CONTAINER | awk '{split($0,version,"_"); print version[2]}' | cut -c 2)
+	OCP_VERSION=$FIRST_DIGIT"."$SECOND_DIGIT
 
 	$CONTAINER_RUNTIME stop $CONTAINER
 	$CONTAINER_RUNTIME rm $CONTAINER
@@ -53,7 +55,7 @@ function run () {
 	if [ -z $1 ]; then
 		echo
 		echo "ERROR: please, set the name of the cluster you want to destroy."
-		echo "		 e.g ./destroy.sh 4.6_20201228-094723_796c2924dc"
+		echo "	     e.g ./destroy.sh ocp_47_e0303b"
 		echo
 		exit 1
 	else
