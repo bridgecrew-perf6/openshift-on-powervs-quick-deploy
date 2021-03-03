@@ -71,6 +71,7 @@ function terraform_create (){
 	
 	mv ./auth_files.tgz ./"$CLUSTER_ID"-access-details
 	cp -rp ./create.log ./"$CLUSTER_ID"-access-details
+	cp -rp ./$CLUSTER_ID-variables ./"$CLUSTER_ID"-access-details
 	
 	mkdir -p ./"$CLUSTER_ID"-access-details/ssh-key
 	cp -rp ./data/id_rsa* ./"$CLUSTER_ID"-access-details/ssh-key
