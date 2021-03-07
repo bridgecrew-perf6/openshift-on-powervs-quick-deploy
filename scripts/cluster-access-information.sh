@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 : '
-    Copyright (C) 2020 IBM Corporation
+    Copyright (C) 2020,2021 IBM Corporation
     Rafael Sene <rpsene@br.ibm.com> - Initial implementation.
 '
 
