@@ -49,6 +49,7 @@ function terraform_create (){
 		-var rhel_subscription_password="$RHEL_SUBS_PASSWORD" \
 		-var cluster_id="$CLUSTER_ID" \
 		-var cluster_id_prefix="$CLUSTET_ID_PREFIX" \
+		-var bastion_health_status="$BASTION_HEALTH" \
 		-var cluster_domain="$CLUSTER_DOMAIN" | tee create.log
 
 		# check if terraform apply was successfuly executed.
