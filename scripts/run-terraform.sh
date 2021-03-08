@@ -88,6 +88,15 @@ function terraform_create (){
 					Web Console: $WEBCONSOLE_URL
 					OpenShift Server URL: $OCP_SERVER_URL
 					Kubeconfig: $AUTH_FILES
+					****************************
+					IBM Cloud Region=$IBMCLOUD_REGION
+					IBM Cloud Zone=$IBMCLOUD_ZONE
+					PowerVS ID=$POWERVS_INSTANCE_ID
+					Bastion Image=$BASTION_IMAGE_NAME
+					RedHat CoreOS Image=$RHCOS_IMAGE_NAME
+					Processor Type=$PROCESSOR_TYPE
+					System Model=$SYSTEM_TYPE
+					Private Network Name=$PRIVATE_NETWORK_NAME
 				" >> ./"$CLUSTER_ID"-access-details/access-details
 
 				mv ./auth_files.tgz ./"$CLUSTER_ID"-access-details
@@ -100,7 +109,7 @@ function terraform_create (){
 				tar -czvf "$CLUSTER_ID"-access-details.tar ./"$CLUSTER_ID"-access-details
 
 				ACCESS_INFO=(
-				"****************************************************************"
+				"**************************************************************"
 				"CLUSTER ACCESS INFORMATION"
 				"Cluster Size: $CLUSTER_FLAVOR"
 				"Cluster ID: $CLUSTER_ID"
@@ -110,7 +119,16 @@ function terraform_create (){
 				"Web Console: $WEBCONSOLE_URL"
 				"OpenShift Server URL: $OCP_SERVER_URL"
 				"Kubeconfig: $AUTH_FILES"
-				"****************************************************************"
+				"***********************"
+				"IBM Cloud Region=$IBMCLOUD_REGION"
+				"IBM Cloud Zone=$IBMCLOUD_ZONE"
+				"PowerVS ID=$POWERVS_INSTANCE_ID"
+				"Bastion Image=$BASTION_IMAGE_NAME"
+				"RedHat CoreOS Image=$RHCOS_IMAGE_NAME"
+				"Processor Type=$PROCESSOR_TYPE"
+				"System Model=$SYSTEM_TYPE"
+				"Private Network Name=$PRIVATE_NETWORK_NAME"
+				"**************************************************************"
 				)
 				printf '%s\n' "${ACCESS_INFO[@]}"
 			else
