@@ -147,6 +147,8 @@ function terraform_create (){
 				cp -rp ./data/id_rsa* ./"$CLUSTER_ID"-access-details/ssh-key
 
 				tar -czvf "$CLUSTER_ID"-access-details.tar ./"$CLUSTER_ID"-access-details
+				
+				mv ./"$CLUSTER_ID"-access-details.tar ../
 
 				printf '%s\n' "${ACCESS_INFO[@]}"
 			else
