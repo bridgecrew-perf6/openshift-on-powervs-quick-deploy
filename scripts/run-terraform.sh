@@ -149,6 +149,8 @@ function terraform_create (){
 				tar -czvf "$CLUSTER_ID"-access-details.tar ./"$CLUSTER_ID"-access-details
 				
 				mv ./"$CLUSTER_ID"-access-details.tar ../
+				
+				export CLUSTER_ID=$CLUSTER_ID
 
 				printf '%s\n' "${ACCESS_INFO[@]}"
 			else
