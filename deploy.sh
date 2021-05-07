@@ -107,6 +107,7 @@ function create_container (){
 
 	echo "*********************************************************************************"
 	echo "NOTE: the installation is running from within the container named $CONTAINER_NAME"
+	echo "	    cluster ID: $PREFIX-$SUFIX 						       " 	 			
 	echo "*********************************************************************************"
 
 	# execute the TF deployment from within the container
