@@ -89,9 +89,9 @@ function create_container (){
 	local DIR
 	local OCP_VERSION=$1
 
-	CONTAINER_NAME=$(echo "ocp-$OCP_VERSION-$SUFIX" | tr -d .)
-	PREFIX=$(echo "ocp-$OCP_VERSION" | tr -d .)
-	DIR=$(echo "ocp-$OCP_VERSION-$SUFIX" | tr -d .)
+	CONTAINER_NAME=$(echo "rdr-$OCP_VERSION-$SUFIX" | tr -d .)
+	PREFIX=$(echo "rdr-$OCP_VERSION" | tr -d .)
+	DIR=$(echo "rdr-$OCP_VERSION-$SUFIX" | tr -d .)
 
 	cp -rp ../files/variables ./tmp-variables
 
@@ -107,7 +107,7 @@ function create_container (){
 
 	echo "*********************************************************************************"
 	echo "NOTE: the installation is running from within the container named $CONTAINER_NAME"
-	echo "	    cluster ID: $PREFIX-$SUFIX 						       " 	 			
+	echo "Cluster ID: $PREFIX-$SUFIX 						       " 	 			
 	echo "*********************************************************************************"
 
 	# execute the TF deployment from within the container
