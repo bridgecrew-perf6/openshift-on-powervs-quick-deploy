@@ -86,11 +86,14 @@ function terraform_create (){
 			BASTION_SSH=$(terraform output --json | jq -r '.bastion_ssh_command.value')
 
 			# check whether or not we can ssh into the bastion
+			echo "**************************************************************"
+			echo "	Trying to access the bastion via ssh..."
 			$BASTION_SSH -oStrictHostKeyChecking=no 'exit'
 			SSH_EXIT=$?
 			if [ "$SSH_EXIT" -eq 0 ]; then
 				echo
 				echo "SUCCESS: we are able to ssh into the bastion."
+				echo "**************************************************************"
 				echo
 				local BASTION_HOSTNAME
 				local CLUSTER_ID
@@ -157,6 +160,7 @@ function terraform_create (){
 				echo
 				echo "ERROR: We are not able to ssh into the bastion."
 				echo "		 Your cluster deployment failed :("
+				echo "**************************************************************"
 				exit 1
 			fi
 		else
