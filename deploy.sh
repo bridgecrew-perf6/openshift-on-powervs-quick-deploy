@@ -108,7 +108,7 @@ function create_container (){
 	quay.io/powercloud/powervs-container-host:ocp-"$OCP_VERSION" /bin/bash
 
 	echo "*********************************************************************************"
-	echo "NOTE: the installation is running from within the container named $CONTAINER_NAME"						       " 	 			
+	echo "NOTE: the installation is running from within the container named $CONTAINER_NAME" 			
 	echo "*********************************************************************************"
 
 	# execute the TF deployment from within the container
