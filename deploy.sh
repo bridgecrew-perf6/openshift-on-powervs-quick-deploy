@@ -63,7 +63,8 @@ function configure() {
 
 		mkdir -p ./powervs-clusters; cd ./powervs-clusters || exit
 
-		DIR=$(echo "ocp-""$OCP_VERSION""-""$SUFIX" | tr -d .)
+		#DIR=$(echo "ocp-""$OCP_VERSION""-""$SUFIX" | tr -d .)
+		DIR="access"
 		mkdir -p ./"$DIR"
 		mkdir -p ./"$DIR"/data
 		mkdir -p ./"$DIR"/scripts
@@ -91,7 +92,8 @@ function create_container (){
 
 	CONTAINER_NAME=$(echo "ocp-$OCP_VERSION-$SUFIX" | tr -d .)
 	PREFIX=$(echo "ocp-$OCP_VERSION" | tr -d .)
-	DIR=$(echo "ocp-$OCP_VERSION-$SUFIX" | tr -d .)
+	#DIR=$(echo "ocp-$OCP_VERSION-$SUFIX" | tr -d .)
+	DIR="access"
 
 	cp -rp ../files/variables ./tmp-variables
 
@@ -106,8 +108,7 @@ function create_container (){
 	quay.io/powercloud/powervs-container-host:ocp-"$OCP_VERSION" /bin/bash
 
 	echo "*********************************************************************************"
-	echo "NOTE: the installation is running from within the container named $CONTAINER_NAME"
-	echo "Container Host ID: $PREFIX-$SUFIX 						       " 	 			
+	echo "NOTE: the installation is running from within the container named $CONTAINER_NAME"						       " 	 			
 	echo "*********************************************************************************"
 
 	# execute the TF deployment from within the container
