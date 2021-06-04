@@ -88,7 +88,7 @@ function terraform_create (){
 			# check whether or not we can ssh into the bastion
 			echo "**************************************************************"
 			echo "	Trying to access the bastion via ssh..."
-			$BASTION_SSH -oStrictHostKeyChecking=no 'exit'
+			$BASTION_SSH -o StrictHostKeyChecking=no -o ConnectTimeout=15 'exit'
 			SSH_EXIT=$?
 			if [ "$SSH_EXIT" -eq 0 ]; then
 				echo
@@ -101,7 +101,7 @@ function terraform_create (){
 				local WEBCONSOLE_URL
 				local OCP_SERVER_URL
 
-				BASTION_HOSTNAME=$($BASTION_SSH -oStrictHostKeyChecking=no 'hostname')
+				BASTION_HOSTNAME=$($BASTION_SSH -o StrictHostKeyChecking=no -o ConnectTimeout=15 'hostname')
 				CLUSTER_ID=$(terraform output --json | jq -r '.cluster_id.value')
 				KUBEADMIN_PWD=$($BASTION_SSH -oStrictHostKeyChecking=no 'cat ~/openstack-upi/auth/kubeadmin-password; echo')
 				WEBCONSOLE_URL=$(terraform output --json | jq -r '.web_console_url.value')
