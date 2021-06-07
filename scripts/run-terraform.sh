@@ -84,7 +84,7 @@ function terraform_create (){
 			local BASTION_SSH
 			BASTION_IP=$(terraform output --json | jq -r '.bastion_public_ip.value')
 			BASTION_SSH=$(terraform output --json | jq -r '.bastion_ssh_command.value')
-
+			ping -c 4 "$BASTION_IP"
 			# check whether or not we can ssh into the bastion
 			echo "**************************************************************"
 			echo "	Trying to access the bastion via ssh..."
