@@ -105,7 +105,7 @@ function create_container (){
 	# starts the base container with the basic set of env vars
 	$CONTAINER_RUNTIME run -dt --name "$CONTAINER_NAME" \
 	-v "$(pwd)"/"$DIR":/ocp4-upi-powervs -e RELEASE_VER="$OCP_VERSION" --env-file ./"$DIR"/data/"$CONTAINER_NAME"-variables \
-	quay.io/powercloud/powervs-container-host:ocp-"$OCP_VERSION" /bin/bash
+	quay.io/powercloud/powervs-container-host:ocp-latest /bin/bash
 
 	echo "*********************************************************************************"
 	echo "NOTE: the installation is running from within the container named $CONTAINER_NAME" 			
