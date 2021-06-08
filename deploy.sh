@@ -63,8 +63,8 @@ function configure() {
 
 		mkdir -p ./powervs-clusters; cd ./powervs-clusters || exit
 
-		DIR=$(echo "ocp-""$OCP_VERSION""-""$SUFIX" | tr -d .)
-		#DIR="access"
+		#DIR=$(echo "ocp-""$OCP_VERSION""-""$SUFIX" | tr -d .)
+		DIR="access"
 		mkdir -p ./"$DIR"
 		mkdir -p ./"$DIR"/data
 		mkdir -p ./"$DIR"/scripts
@@ -92,8 +92,8 @@ function create_container (){
 
 	CONTAINER_NAME=$(echo "ocp-$OCP_VERSION-$SUFIX" | tr -d .)
 	PREFIX=$(echo "ocp-$OCP_VERSION" | tr -d .)
-	DIR=$(echo "ocp-$OCP_VERSION-$SUFIX" | tr -d .)
-	#DIR="access"
+	#DIR=$(echo "ocp-$OCP_VERSION-$SUFIX" | tr -d .)
+	DIR="access"
 
 	cp -rp ../files/variables ./tmp-variables
 
