@@ -17,3 +17,5 @@ STORAGE_TYPE=no
 STORAGE_VOLUME_SIZE=300
 STORAGE_VOLUME_TYPE=tier1
 STORAGE_VOLUME_SHAREABLE=false
+master_volume_size=mvs
+worker_volume_size=wvs
