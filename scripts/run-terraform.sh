@@ -50,7 +50,9 @@ function terraform_create (){
 		-var cluster_id="$CLUSTER_ID" \
 		-var cluster_id_prefix="$CLUSTET_ID_PREFIX" \
 		-var bastion_health_status="$BASTION_HEALTH" \
-		-var cluster_domain="$CLUSTER_DOMAIN" | tee create.log
+		-var cluster_domain="$CLUSTER_DOMAIN" \
+		-var master_volume_size="$MASTER_VOLUME_SIZE" \
+		-var worker_volume_size="$WORKER_VOLUME_SIZE" | tee create.log
 
 		# check if terraform apply was successfuly executed.
 		if [ $? -eq 0 ]; then
