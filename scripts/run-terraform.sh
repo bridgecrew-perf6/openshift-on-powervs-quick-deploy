@@ -52,7 +52,8 @@ function terraform_create (){
 		"volume_type = \"$STORAGE_VOLUME_TYPE\""
 		"volume_shareable = \"$STORAGE_VOLUME_SHAREABLE\""
 		"master_volume_size = \"$MASTER_VOLUME_SIZE\"" \
-		"worker_volume_size = \"$WORKER_VOLUME_SIZE\"")
+		"worker_volume_size = \"$WORKER_VOLUME_SIZE\"" \
+		"setup_squid_proxy = \"$SETUP_SQUID_PROXY\"")		
 
 		# if the user is going to use RHEL as bastion
 		if [ "$RHEL_SUBS_USERNAME" ] && [ "$RHEL_SUBS_PASSWORD" ]; then
