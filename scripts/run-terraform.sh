@@ -148,8 +148,8 @@ function terraform_create (){
 				cp -rp ../var.tfvars ./"$CLUSTER_ID"-access-details
 				#cp -rp "../$CLUSTER_ID-variables" ./"$CLUSTER_ID"-access-details
 				
-				mkdir -p ./"$CLUSTER_ID"-access-details/data/id_rsa
-				cp -rp ./data/id_rsa* ./"$CLUSTER_ID"-access-details/data/id_rsa
+				mkdir -p ./"$CLUSTER_ID"-access-details/data/
+				cp -rp ./data/id_rsa* ./"$CLUSTER_ID"-access-details/data/
 
 				tar -czvf "$CLUSTER_ID"-access-details.tar ./"$CLUSTER_ID"-access-details
 				
