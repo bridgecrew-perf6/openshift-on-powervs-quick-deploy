@@ -54,7 +54,24 @@ function terraform_create (){
 		"master_volume_size = \"$MASTER_VOLUME_SIZE\"" \
 		"worker_volume_size = \"$WORKER_VOLUME_SIZE\"" \
 		"setup_squid_proxy = \"$SETUP_SQUID_PROXY\"" \
-		"setup_snat = \"$SETUP_SNAT\"")	
+		"setup_snat = \"$SETUP_SNAT\"" \
+		"use_ibm_cloud_services = \"$USE_IBM_CLOUD_SERVICES\"" \
+		"ibm_cloud_vpc_name = \"$IBM_CLOUD_VPC_NAME\"" \
+		"ibm_cloud_vpc_subnet_name = \"$IBM_CLOUD_VPC_SUBNET_NAME\"" \
+		"iaas_classic_username = \"$IAAS_CLASSIC_USERNAME\"" \
+		"iaas_classic_api_key = \"$IAAS_CLASSIC_API_KEY\"" \
+		"iaas_vpc_region = \"$IAAS_VPC_REGION\"")
+		
+		#au-syd     https://au-syd.iaas.cloud.ibm.com
+		#br-sao     https://br-sao.iaas.cloud.ibm.com
+		#ca-tor     https://ca-tor.iaas.cloud.ibm.com
+		#eu-de      https://eu-de.iaas.cloud.ibm.com
+		#eu-fr2     https://eu-fr2.iaas.cloud.ibm.com
+		#eu-gb      https://eu-gb.iaas.cloud.ibm.com
+		#jp-osa     https://jp-osa.iaas.cloud.ibm.com
+		#jp-tok     https://jp-tok.iaas.cloud.ibm.com
+		#us-east    https://us-east.iaas.cloud.ibm.com
+		#us-south   https://us-south.iaas.cloud.ibm.com
 
 		# if the user is going to use RHEL as bastion
 		if [ "$RHEL_SUBS_USERNAME" ] && [ "$RHEL_SUBS_PASSWORD" ]; then
