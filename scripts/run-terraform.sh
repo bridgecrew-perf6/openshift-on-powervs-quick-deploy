@@ -59,7 +59,8 @@ function terraform_create (){
 		"ibm_cloud_vpc_name = \"$IBM_CLOUD_VPC_NAME\"" \
 		"ibm_cloud_vpc_subnet_name = \"$IBM_CLOUD_VPC_SUBNET_NAME\"" \
 		"iaas_classic_username = \"$IAAS_CLASSIC_USERNAME\"" \
-		"iaas_vpc_region = \"$IAAS_VPC_REGION\"")
+		"iaas_vpc_region = \"$IAAS_VPC_REGION\"" \
+		"use_zone_info_for_names = \"$USE_ZONE_INFO_FOR_NAMES\"")
 		
 		#"iaas_classic_api_key = \"$IAAS_CLASSIC_API_KEY\"" \
 		#au-syd     https://au-syd.iaas.cloud.ibm.com
