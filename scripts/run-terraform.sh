@@ -49,7 +49,6 @@ function terraform_create (){
 		"cluster_domain = \"$CLUSTER_DOMAIN\""
 		"storage_type = \"$STORAGE_TYPE\""
 		"volume_size = \"$STORAGE_VOLUME_SIZE\""
-		"volume_type = \"$STORAGE_VOLUME_TYPE\""
 		"volume_shareable = \"$STORAGE_VOLUME_SHAREABLE\""
 		"master_volume_size = \"$MASTER_VOLUME_SIZE\"" \
 		"worker_volume_size = \"$WORKER_VOLUME_SIZE\"" \
