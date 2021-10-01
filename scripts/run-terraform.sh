@@ -55,11 +55,6 @@ function terraform_create (){
 		"worker_volume_size = \"$WORKER_VOLUME_SIZE\"" \
 		"setup_squid_proxy = \"$SETUP_SQUID_PROXY\"" \
 		"setup_snat = \"$SETUP_SNAT\"" \
-		"use_ibm_cloud_services = \"$USE_IBM_CLOUD_SERVICES\"" \
-		"ibm_cloud_vpc_name = \"$IBM_CLOUD_VPC_NAME\"" \
-		"ibm_cloud_vpc_subnet_name = \"$IBM_CLOUD_VPC_SUBNET_NAME\"" \
-		"iaas_classic_username = \"$IAAS_CLASSIC_USERNAME\"" \
-		"iaas_vpc_region = \"$IAAS_VPC_REGION\"" \
 		"use_zone_info_for_names = \"$USE_ZONE_INFO_FOR_NAMES\"")
 		
 		#"iaas_classic_api_key = \"$IAAS_CLASSIC_API_KEY\"" \
@@ -73,6 +68,14 @@ function terraform_create (){
 		#jp-tok     https://jp-tok.iaas.cloud.ibm.com
 		#us-east    https://us-east.iaas.cloud.ibm.com
 		#us-south   https://us-south.iaas.cloud.ibm.com
+
+		if [ "$USE_IBM_CLOUD_SERVICES" = true ]; then
+			VARS=( "${VARS[@]}" "use_ibm_cloud_services = \"$USE_IBM_CLOUD_SERVICES\"" )
+			VARS=( "${VARS[@]}" "ibm_cloud_vpc_name = \"$IBM_CLOUD_VPC_NAME\"" )
+  			VARS=( "${VARS[@]}" "ibm_cloud_vpc_subnet_name = \"$IBM_CLOUD_VPC_SUBNET_NAME\"" )
+            		VARS=( "${VARS[@]}" "iaas_classic_username = \"$IAAS_CLASSIC_USERNAME\"" )
+            		VARS=( "${VARS[@]}" "iaas_vpc_region = \"$IAAS_VPC_REGION\"" )
+   		fi
 
 		# if the user is going to use RHEL as bastion
 		if [ "$RHEL_SUBS_USERNAME" ] && [ "$RHEL_SUBS_PASSWORD" ]; then
