@@ -27,9 +27,9 @@ function check_connectivity() {
 
 function terraform_create (){
 
-	#curl -sL https://raw.githubusercontent.com/ocp-power-automation/openshift-install-power/master/openshift-install-powervs -o ./openshift-install-powervs
+	curl -sL https://raw.githubusercontent.com/ocp-power-automation/openshift-install-power/master/openshift-install-powervs -o ./openshift-install-powervs
 
-	curl -sL https://raw.githubusercontent.com/rpsene/openshift-install-power/devel/openshift-install-powervs -o ./openshift-install-powervs
+	#curl -sL https://raw.githubusercontent.com/rpsene/openshift-install-power/devel/openshift-install-powervs -o ./openshift-install-powervs
 	
 	#curl -sL https://github.com/ocp-power-automation/openshift-install-power/archive/refs/tags/v1.2.2.zip -o v1.2.2.zip
 	#unzip ./v1.2.2.zip
