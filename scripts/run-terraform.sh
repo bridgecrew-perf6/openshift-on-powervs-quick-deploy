@@ -95,7 +95,7 @@ function terraform_create (){
 		# move the pull secret to where it is expected
 		mv ./data/pull-secret.txt ./
 
-		./openshift-install-powervs create -verbose -var-file ./var.tfvars | tee create.log
+		./openshift-install-powervs create -verbose -trace -var-file ./var.tfvars | tee create.log
 
 		OCP_INSTALL_EXIT=$?
 		# check if terraform apply was successfuly executed.
