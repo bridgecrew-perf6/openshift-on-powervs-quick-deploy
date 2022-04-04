@@ -26,3 +26,4 @@ IBM_CLOUD_VPC_SUBNET_NAME=vpc_subnet_name
 IAAS_CLASSIC_USERNAME=iaas_username
 IAAS_VPC_REGION=iaas_region
 USE_ZONE_INFO_FOR_NAMES=false
+FIPS=false
