@@ -55,7 +55,8 @@ function terraform_create (){
 		"worker_volume_size = \"$WORKER_VOLUME_SIZE\"" \
 		"setup_squid_proxy = \"$SETUP_SQUID_PROXY\"" \
 		"setup_snat = \"$SETUP_SNAT\"" \
-		"use_zone_info_for_names = \"$USE_ZONE_INFO_FOR_NAMES\"")
+		"use_zone_info_for_names = \"$USE_ZONE_INFO_FOR_NAMES\"" \
+		"fips_compliant = \"$FIPS\"")
 		
 		#"iaas_classic_api_key = \"$IAAS_CLASSIC_API_KEY\"" \
 		#au-syd     https://au-syd.iaas.cloud.ibm.com
