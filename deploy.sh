@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 : '
-    Copyright (C) 2020, 2021 IBM Corporation
+    Copyright (C) 2020, 2022 IBM Corporation
     Rafael Sene <rpsene@br.ibm.com> - Initial implementation.
 '
 
@@ -101,11 +101,12 @@ function create_container (){
 	sed -i -e "s/prefix/$PREFIX/g" ./tmp-variables
 
 	mv ./tmp-variables ./"$DIR"/data/"$CONTAINER_NAME"-variables
+	$CONTAINER_RUNTIME pull quay.io/powercloud/powervs-container-host:multi-arch 
 
 	# starts the base container with the basic set of env vars
 	$CONTAINER_RUNTIME run -dt --name "$CONTAINER_NAME" \
 	-v "$(pwd)"/"$DIR":/ocp4-upi-powervs -e RELEASE_VER="$OCP_VERSION" --env-file ./"$DIR"/data/"$CONTAINER_NAME"-variables \
-	quay.io/powercloud/powervs-container-host:ocp-latest /bin/bash
+	quay.io/powercloud/powervs-container-host:multi-arch  /bin/bash
 
 	echo "*********************************************************************************"
 	echo "NOTE: the installation is running from within the container named $CONTAINER_NAME" 			
@@ -117,12 +118,12 @@ function create_container (){
 
 function run (){
 
-	OCP_VERSIONS=("4.5" "4.6" "4.7" "4.8" "4.9" "4.10" "4.11")
+	OCP_VERSIONS=("4.8" "4.9" "4.10" "4.11")
 
 	if [ -z "$1" ]; then
 		echo
 		echo "ERROR: Please, select one of the supported versions: ${OCP_VERSIONS[*]}."
-		echo "       e.g: ./deploy 4.8"
+		echo "       e.g: ./deploy 4.10"
 		echo
 		exit 1
 	elif [[ ! " ${OCP_VERSIONS[*]} " =~ ${1} ]]; then

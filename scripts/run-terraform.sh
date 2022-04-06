@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 : '
-    Copyright (C) 2020, 2021 IBM Corporation
+    Copyright (C) 2020, 2022 IBM Corporation
     Rafael Sene <rpsene@br.ibm.com> - Initial implementation. 
 '
 
@@ -74,8 +74,8 @@ function terraform_create (){
 			VARS=( "${VARS[@]}" "use_ibm_cloud_services = \"$USE_IBM_CLOUD_SERVICES\"" )
 			VARS=( "${VARS[@]}" "ibm_cloud_vpc_name = \"$IBM_CLOUD_VPC_NAME\"" )
   			VARS=( "${VARS[@]}" "ibm_cloud_vpc_subnet_name = \"$IBM_CLOUD_VPC_SUBNET_NAME\"" )
-            		VARS=( "${VARS[@]}" "iaas_classic_username = \"$IAAS_CLASSIC_USERNAME\"" )
-            		VARS=( "${VARS[@]}" "iaas_vpc_region = \"$IAAS_VPC_REGION\"" )
+            VARS=( "${VARS[@]}" "iaas_classic_username = \"$IAAS_CLASSIC_USERNAME\"" )
+            VARS=( "${VARS[@]}" "iaas_vpc_region = \"$IAAS_VPC_REGION\"" )
    		fi
 
 		# if the user is going to use RHEL as bastion
@@ -98,21 +98,35 @@ function terraform_create (){
 
 		./openshift-install-powervs create -verbose -trace -var-file ./var.tfvars | tee create.log
 
-		OCP_INSTALL_EXIT=$?
+		if [ -f "./create.log" ]; then
+			LAST_LINE=$(tail -1 ./create.log);
+		else
+			echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+			echo
+			echo "ERROR: Terraform apply was NOT executed successfully."
+			echo
+			echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+			exit 1
+		fi
 		# check if terraform apply was successfuly executed.
-		if [ "$OCP_INSTALL_EXIT" -eq 0 ]; then
+		if [[ "$LAST_LINE" == *"SUCCESS"* ]]; then
+			echo "**************************************************************"
 			echo
 			echo "SUCCESS: Terraform apply was executed successfully."
 			echo
+			echo "**************************************************************"
 			cd ./automation || exit 1
 			local BASTION_IP
 			local BASTION_SSH
 			BASTION_IP=$(terraform output --json | jq -r '.bastion_public_ip.value')
 			BASTION_SSH=$(terraform output --json | jq -r '.bastion_ssh_command.value')
-			ping -c 4 "$BASTION_IP"
+			# saves the terraform logs
+			terraform output --json >> ./terraform-outuput.json
+			ping -c 10 "$BASTION_IP"
 			# check whether or not we can ssh into the bastion
 			echo "**************************************************************"
 			echo "	Trying to access the bastion via ssh..."
+			echo "$BASTION_SSH"
 			$BASTION_SSH -o StrictHostKeyChecking=no -o ConnectTimeout=15 'exit'
 			SSH_EXIT=$?
 			if [ "$SSH_EXIT" -eq 0 ]; then
@@ -169,6 +183,7 @@ function terraform_create (){
 				cp -rp /tmp/"$CLUSTER_ID"/auth/* ./"$CLUSTER_ID"-access-details
 				cp -rp ../create.log ./"$CLUSTER_ID"-access-details
 				cp -rp ../var.tfvars ./"$CLUSTER_ID"-access-details
+				cp -rp ../terraform-outuput.json ./"$CLUSTER_ID"-access-details
 				#cp -rp "../$CLUSTER_ID-variables" ./"$CLUSTER_ID"-access-details
 				
 				mkdir -p ./"$CLUSTER_ID"-access-details/data/
@@ -182,53 +197,37 @@ function terraform_create (){
 
 				printf '%s\n' "${ACCESS_INFO[@]}"
 			else
+				echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 				echo
 				echo "ERROR: We are not able to ssh into the bastion."
 				echo "		 Your cluster deployment failed :("
-				echo "**************************************************************"
+				echo
+				echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 				exit 1
 			fi
 		else
+			echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 			echo
 			echo "ERROR: Terraform apply failed, aborting."
+			echo
+			echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 			exit 1
 		fi
 	else
+		echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 		echo
 		echo "ERROR: Could not locate $INSTALL, aborting."
+		echo
+		echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 		exit 1
 	fi
 }
 
-function terraform_destroy (){
-
-	terraform init
-	terraform destroy -auto-approve -var-file var.tfvars -parallelism=3 \
-	-var-file compute-vars/"$CLUSTER_FLAVOR".tfvars \
-	-var ibmcloud_api_key="$IBMCLOUD_API_KEY" \
-	-var ibmcloud_region="$IBMCLOUD_REGION" \
-	-var ibmcloud_zone="$IBMCLOUD_ZONE" \
-	-var service_instance_id="$POWERVS_INSTANCE_ID" \
-	-var rhel_image_name="$BASTION_IMAGE_NAME" \
-	-var rhcos_image_name="$RHCOS_IMAGE_NAME" \
-	-var processor_type="$PROCESSOR_TYPE" \
-	-var system_type="$SYSTEM_TYPE" \
-	-var network_name="$PRIVATE_NETWORK_NAME" \
-	-var rhel_subscription_username="$RHEL_SUBS_USERNAME" \
-	-var rhel_subscription_password="$RHEL_SUBS_PASSWORD" \
-	-var cluster_id="$CLUSTER_ID" \
-	-var cluster_id_prefix="$CLUSTET_ID_PREFIX" \
-	-var cluster_domain="$CLUSTER_DOMAIN" | tee destroy.log
-}
 
 function run (){
 
     check_connectivity
-    if [[ "$1" == *"--destroy"* ]]; then
-    	terraform_destroy
-    else
-    	terraform_create
-    fi
+	terraform_create
 }
 
 run "$@"
