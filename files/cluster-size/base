@@ -1,0 +1,4 @@
+bastion = {memory = "24", processors = "0.5", "count" = 1}
+bootstrap = {memory = "24", processors = "0.5", "count" = 1}
+master = {memory = "24", processors = "0.5", "count" = 3}
+worker = {memory = "16", processors = "0.5", "count" = 3}
